@@ -1,11 +1,9 @@
-"use client";
+import HomePage from "./home/page";
 
-import Button from "@/components/button";
-
-export default function Home() {
+export default function App() {
   return (
-    <>
-      <Button buttonText="Klikk" onClick={() => {}} />
-    </>
+    <main>
+      <HomePage />
+    </main>
   );
 }
