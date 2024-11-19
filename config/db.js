@@ -10,15 +10,14 @@ const connectDB = async () => {
     const conn = await mongoose.connect(process.env.MONGO_URI);
     console.log(`MongoDB connected: ${conn.connection.host}`);
 
-    // GridFSBucket inicializálása a fájlokhoz
     gridfsBucket = new GridFSBucket(conn.connection.db, {
-      bucketName: 'uploads', // A "uploads" bucket fogja tárolni a képeket
+      bucketName: 'uploads',
     });
 
     gfs = gridfsBucket;
   } catch (error) {
     console.error(`Error: ${error.message}`);
-    process.exit(1); // Kilépés hibás kapcsolat esetén
+    process.exit(1);
   }
 };
 

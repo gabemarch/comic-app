@@ -25,25 +25,25 @@ const comicSchema = new mongoose.Schema({
     required: true
   },
   genre: {
-    type: Array,
+    type: [String],
     required: true,
   },
   releaseYear: {
     type: Number,
   },
   writer: {
-    type: String || Array,
+    type: [String],
     required: true
   },
   illustrations: {
-    type: String || Array,
+    type: [String],
     required: true
   },
   colorist: {
-    type: String || Array
+    type: [String]
   },
   translator: {
-    type: String || Array
+    type: [String]
   },
   rating: {
     type: Number,
