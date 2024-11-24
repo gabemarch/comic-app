@@ -10,7 +10,6 @@ export default function HomePage() {
   return (
     <div>
       <h1>Welcome to the Search Page</h1>
-      {/* A Searchbar egy Client Component */}
       <Searchbar onSearch={handleSearch} placeholder="Search comics..." />
     </div>
   );
