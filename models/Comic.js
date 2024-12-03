@@ -28,6 +28,12 @@ const comicSchema = new mongoose.Schema({
     type: [String],
     required: true,
   },
+  hunEditor: {
+    type: String
+  },
+  originalReleaseYear: {
+    type: Number,
+  },
   releaseYear: {
     type: Number,
   },
@@ -48,6 +54,9 @@ const comicSchema = new mongoose.Schema({
   rating: {
     type: Number,
     default: 0,
+  },
+  series: {
+    type: String
   },
   reviews: [
     {

@@ -18,7 +18,10 @@ const createComic = async (req, res) => {
       colorist,
       translator,
       rating,
-      reviews 
+      reviews ,
+      series,
+      hunEditor,
+      originalReleaseYear
     } = req.body;
     const coverImageId = req.files['coverImage'] ? req.files['coverImage'][0].id : null;
 
@@ -37,6 +40,9 @@ const createComic = async (req, res) => {
       translator,
       rating,
       reviews,
+      series,
+      hunEditor,
+      originalReleaseYear,
       coverImage: coverImageId
     });
 
@@ -97,6 +103,9 @@ const updateComic = async (req, res) => {
       colorist,
       translator,
       rating,
+      series,
+      hunEditor,
+      originalReleaseYear
     } = req.body;
 
     const comic = await Comic.findById(id);
@@ -119,6 +128,9 @@ const updateComic = async (req, res) => {
     if (colorist) comic.colorist = Array.isArray(colorist) ? colorist : [colorist];
     if (translator) comic.translator = Array.isArray(translator) ? translator : [translator];
     if (rating) comic.rating = parseFloat(rating);
+    if (series) comic.series = series;
+    if (hunEditor) comic.series = hunEditor;
+    if(originalReleaseYear) comics.originalReleaseYear = originalReleaseYear;
 
     // Ha új kép érkezik, töröljük a régit, és állítsuk be az újat
     if (req.files && req.files['coverImage']) {
