@@ -8,8 +8,10 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "axios": "^1.7.8",
     "formik": "^2.4.6",
     "heroicons": "^2.2.0",
     "i18next": "^23.16.5",

@@ -64,8 +64,8 @@ const SideDrawer = () => {
   return (
     <>
       <div
-        className={`fixed top-0 left-0 h-full ${
-          isOpen ? 'w-64' : 'w-16'
+        className={`top-0 left-0 h-full ${
+          isOpen ? 'w-64' : 'w-32'
         } bg-[#393b6f] transition-all duration-300`}
       >
         <button

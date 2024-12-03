@@ -24,6 +24,7 @@ const ComicSchema = Yup.object().shape({
   colorist: Yup.array().of(Yup.string()),
   translator: Yup.array().of(Yup.string()),
   coverImage: Yup.mixed().required('A borítókép feltöltése kötelező.'),
+  series: Yup.string()
 });
 
 const ComicForm = () => {
@@ -33,13 +34,16 @@ const ComicForm = () => {
     publisher: '',
     hunPublisher: '',
     language: '',
-    pageNumber: '',
+    pageNumber: 0,
     genre: [],
     releaseYear: '',
     writer: [],
     illustrations: [],
     colorist: [],
     translator: [],
+    series: '',
+    hunEditor: '',
+    originalReleaseYear: 0,
     coverImage: null,
   };
 
@@ -53,12 +57,16 @@ const ComicForm = () => {
         } else {
           formData.append(key, value);
         }
+
       });
 
-      const response = await fetch('http://localhost:5000/comics', {
+      const response = await fetch('http://localhost:5000/api/comics', {
+        mode: 'cors',
         method: 'POST',
         body: formData,
       });
+
+      console.log(response)
 
       if (response.ok) {
         alert('A képregény sikeresen feltöltve!');
@@ -73,7 +81,7 @@ const ComicForm = () => {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={ComicSchema}
+      // validationSchema={ComicSchema}
       onSubmit={handleSubmit}
     >
       {({ setFieldValue, isSubmitting }) => (
@@ -81,7 +89,7 @@ const ComicForm = () => {
           {/* Eredeti cím */}
           <div>
             <label htmlFor="originalTitle" className="block text-sm font-medium text-gray-700">
-              Eredeti cím
+              Eredeti cím*
             </label>
             <Field
               type="text"
@@ -104,8 +112,21 @@ const ComicForm = () => {
           </div>
 
           <div>
+            <label htmlFor="series" className="block text-sm font-medium text-gray-700">
+              Sorozat
+            </label>
+            <Field
+              type="text"
+              name="series"
+              id="series"
+              className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+            />
+            <ErrorMessage name="series" component="div" className="text-red-500 text-sm mt-1" />
+          </div>
+
+          <div>
             <label htmlFor="publisher" className="block text-sm font-medium text-gray-700">
-              Eredeti Kiadó
+              Eredeti Kiadó*
             </label>
             <Field
               type="text"
@@ -116,11 +137,26 @@ const ComicForm = () => {
             <ErrorMessage name="publisher" component="div" className="text-red-500 text-sm mt-1" />
           </div>
 
+          
+          <div>
+            <label htmlFor="editor" className="block text-sm font-medium text-gray-700">
+              Magyar kiadás szerkesztője
+            </label>
+            <Field
+              type="text"
+              name="editor"
+              id="editor"
+              className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+            />
+            <ErrorMessage name="editor" component="div" className="text-red-500 text-sm mt-1" />
+          </div>
+
           {/* További mezők */}
           {[
             { name: 'hunPublisher', label: 'Magyar kiadó' },
             { name: 'language', label: 'Nyelv' },
             { name: 'pageNumber', label: 'Oldalszám', type: 'number' },
+            { name: 'originalReleaseYear', label: 'Első Megjelenés', type: 'number' },
             { name: 'releaseYear', label: 'Megjelenési év', type: 'number' },
           ].map(({ name, label, type = 'text' }) => (
             <div key={name}>
@@ -138,9 +174,9 @@ const ComicForm = () => {
 
           {/* Többértékű mezők */}
           {[
-            { name: 'genre', label: 'Műfajok' },
-            { name: 'writer', label: 'Író(k)' },
-            { name: 'illustrations', label: 'Rajzoló(k)' },
+            { name: 'genre', label: 'Műfajok*' },
+            { name: 'writer', label: 'Író(k)*' },
+            { name: 'illustrations', label: 'Rajzoló(k)*' },
             { name: 'colorist', label: 'Színező(k)' },
             { name: 'translator', label: 'Fordító(k)' },
           ].map(({ name, label }) => (

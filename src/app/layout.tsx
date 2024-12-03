@@ -31,8 +31,7 @@ export default function RootLayout({
       >
         <div className="flex">
           <SideDrawer />
-          <main className="ml-64 flex-1 p-6">
-
+          <main className="ml-16 p-4">
             {children}
           </main>
         </div>
